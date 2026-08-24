@@ -10,11 +10,10 @@ import {
 import VideoFeed from '@/components/VideoFeed';
 import { PERFILES_MOCK } from '@/data/perfiles';
 import type { PublicServiceEntry } from '@/lib/types';
-import { Sparkles, Search } from 'lucide-react';
+import { Search, SlidersHorizontal, Sparkles, X } from 'lucide-react';
 
 type Filters = DirectorioFilters;
 
-/** Delay artificial: preserva la pantalla de carga como parte del diseño a evaluar. */
 const MOCK_LOAD_DELAY_MS = 500;
 
 function applyClientSideFilters(services: PublicServiceEntry[], filters: Filters): PublicServiceEntry[] {
@@ -77,9 +76,9 @@ function applyClientSideFilters(services: PublicServiceEntry[], filters: Filters
 
 function DirectorioLoading() {
   return (
-    <div className="flex h-[calc(100vh-3.5rem)] min-h-0 items-center justify-center">
+    <div className="flex h-[calc(100svh-3.5rem)] min-h-0 items-center justify-center">
       <div className="text-center">
-        <Sparkles className="w-12 h-12 text-seeket-orange animate-pulse mx-auto mb-4" />
+        <Sparkles className="mx-auto mb-4 h-12 w-12 animate-pulse text-seeket-orange" />
         <p className="text-white/70">Cargando directorio...</p>
       </div>
     </div>
@@ -92,6 +91,7 @@ export default function DirectorioPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<Filters>({ ...DEFAULT_DIRECTORIO_FILTERS });
   const [loading, setLoading] = useState(true);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -119,13 +119,20 @@ export default function DirectorioPage() {
     applyFilters();
   }, [applyFilters]);
 
+  useEffect(() => {
+    if (!mobileFiltersOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [mobileFiltersOpen]);
+
   const resultsKey = useMemo(
     () => `${searchQuery.trim()}::${JSON.stringify(filters)}`,
     [searchQuery, filters],
   );
 
-  // El reto es solo la pantalla del feed: el clic conserva su afordancia visual
-  // (cursor, hover, focus ring) pero no navega a ningún lado.
   const handleViewStrategy = useCallback((_service: PublicServiceEntry) => {}, []);
   const handleViewProfile = useCallback((_profileId: string) => {}, []);
 
@@ -134,32 +141,73 @@ export default function DirectorioPage() {
   }
 
   return (
-    <div className="relative h-[calc(100vh-3.5rem)] min-h-0 overflow-hidden">
+    <div className="relative h-[calc(100svh-3.5rem)] min-h-0 overflow-hidden">
       <AnimatedBubbles />
-      <main className="relative z-10 flex h-full min-h-0 gap-3 pl-4 pr-3 pb-4 pt-3 sm:gap-4 sm:pl-5 sm:pr-4 sm:pb-5 sm:pt-4">
-        <aside className="hidden min-h-0 lg:flex lg:w-[15.5rem] lg:shrink-0 lg:flex-col lg:gap-2 xl:w-[16.5rem]">
-          <div className="flex shrink-0 flex-col">
+      <main className="relative z-10 flex h-full min-h-0 flex-col gap-3 px-3 pb-3 pt-3 sm:px-4 sm:pb-4 lg:flex-row lg:gap-4 lg:px-5">
+        <section className="shrink-0 rounded-lg border border-white/[0.12] bg-black/[0.38] p-2.5 shadow-2xl shadow-black/25 backdrop-blur-xl lg:hidden">
+          <div className="mb-2 flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              <p className="brand-display text-2xl leading-none text-white">Directorio</p>
+              <p className="mt-0.5 text-xs text-white/[0.55]">
+                {filteredServices.length} de {services.length} perfiles
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setMobileFiltersOpen(true)}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-seeket-orange/35 bg-seeket-orange/[0.12] text-seeket-orange transition-colors hover:bg-seeket-orange/[0.18] focus:outline-none focus-visible:ring-2 focus-visible:ring-seeket-orange/45"
+              aria-label="Abrir filtros"
+            >
+              <SlidersHorizontal className="h-4 w-4" />
+            </button>
+          </div>
+          <label className="sr-only" htmlFor="mobile-search">Buscar por nombre o servicio</label>
+          <div className="relative">
+            <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-white/[0.45]" />
+            <input
+              id="mobile-search"
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Busca nombre, servicio o especialidad"
+              className="w-full rounded-lg border border-white/[0.12] bg-white/[0.07] py-2.5 pl-9 pr-3 text-sm text-white placeholder:text-white/35 transition-all focus:border-seeket-orange/45 focus:outline-none focus:ring-2 focus:ring-seeket-orange/25"
+            />
+          </div>
+        </section>
+
+        <aside className="hidden min-h-0 lg:flex lg:w-[17rem] lg:shrink-0 lg:flex-col lg:gap-3 xl:w-[18rem]">
+          <div className="flex shrink-0 flex-col rounded-lg border border-white/[0.12] bg-black/[0.36] p-3 shadow-2xl shadow-black/20 backdrop-blur-xl">
+            <p className="brand-display text-3xl leading-none text-white">Directorio</p>
+            <p className="mt-1 text-xs leading-snug text-white/[0.55]">
+              Proveedores listos para crecer con marcas que buscan criterio, ejecucion y resultados.
+            </p>
+            <div className="my-3 h-px bg-gradient-to-r from-seeket-red-vibrant/[0.55] via-seeket-orange/35 to-transparent" />
             <label className="mb-1.5 block text-xs font-semibold text-white/75">Buscar por nombre</label>
             <div className="relative">
-              <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-white/45" />
+              <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-white/[0.45]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Busca por nombre o servicio…"
-                className="w-full rounded-xl border border-white/15 bg-white/[0.08] py-2 pl-9 pr-3 text-xs text-white placeholder:text-white/35 transition-all focus:border-seeket-red-vibrant/40 focus:outline-none focus:ring-2 focus:ring-seeket-red-vibrant/35"
+                placeholder="Busca por nombre o servicio..."
+                className="w-full rounded-lg border border-white/[0.15] bg-white/[0.08] py-2 pl-9 pr-3 text-xs text-white placeholder:text-white/35 transition-all focus:border-seeket-orange/45 focus:outline-none focus:ring-2 focus:ring-seeket-orange/25"
               />
             </div>
+            <p className="mt-2 text-[11px] text-white/[0.45]">
+              {filteredServices.length} resultados visibles
+            </p>
           </div>
-          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl shadow-lg shadow-black/25">
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg shadow-lg shadow-black/25">
             <FiltersPanel filters={filters} onFiltersChange={setFilters} />
           </div>
         </aside>
-        <div className="flex-1 min-h-0 overflow-hidden flex flex-col">
+
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-white/10 bg-black/[0.24] shadow-2xl shadow-black/30 backdrop-blur-[2px]">
           {filteredServices.length === 0 ? (
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center">
-                <p className="text-white/50 text-sm">No hay servicios que coincidan.</p>
+            <div className="flex h-full items-center justify-center">
+              <div className="max-w-xs text-center">
+                <p className="brand-display text-3xl leading-none text-white">Sin match</p>
+                <p className="mt-2 text-sm text-white/[0.55]">Prueba ajustar la busqueda o limpiar algun filtro.</p>
               </div>
             </div>
           ) : (
@@ -172,6 +220,36 @@ export default function DirectorioPage() {
           )}
         </div>
       </main>
+
+      {mobileFiltersOpen && (
+        <div className="fixed inset-0 z-[120] lg:hidden">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/[0.68] backdrop-blur-sm"
+            aria-label="Cerrar filtros"
+            onClick={() => setMobileFiltersOpen(false)}
+          />
+          <div className="absolute inset-x-2 bottom-2 flex max-h-[82svh] min-h-0 flex-col overflow-hidden rounded-lg border border-white/[0.14] bg-[#080706]/[0.96] shadow-2xl shadow-black/70">
+            <div className="flex shrink-0 items-center justify-between border-b border-white/10 px-3 py-3">
+              <div>
+                <p className="brand-display text-2xl leading-none text-white">Afinar busqueda</p>
+                <p className="mt-0.5 text-xs text-white/50">Filtros y presupuesto.</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setMobileFiltersOpen(false)}
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.12] bg-white/[0.06] text-white/80 transition-colors hover:bg-white/[0.1] focus:outline-none focus-visible:ring-2 focus-visible:ring-seeket-orange/45"
+                aria-label="Cerrar filtros"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="min-h-0 flex-1 overflow-hidden">
+              <FiltersPanel filters={filters} onFiltersChange={setFilters} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

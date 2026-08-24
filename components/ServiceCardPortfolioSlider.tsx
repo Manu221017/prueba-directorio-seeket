@@ -35,7 +35,7 @@ export default function ServiceCardPortfolioSlider({ projects, compact = false }
 
   return (
     <div role="region" aria-label="Portafolio" className="w-full">
-      <div className="relative rounded-xl overflow-hidden border border-white/10 bg-white/5">
+      <div className="relative overflow-hidden rounded-lg border border-white/10 bg-white/5">
         <div className={`relative w-full ${compact ? 'aspect-[2/1]' : 'aspect-[5/3]'}`}>
           {showCover ? (
             <img

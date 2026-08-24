@@ -15,15 +15,18 @@ const sizes = {
 };
 
 export default function SeeketLogo({ className = '', size = 'lg', animated = true }: SeeketLogoProps) {
-  const baseClass = `font-bold tracking-tight ${sizes[size]} ${className}`;
+  const baseClass = `font-black ${sizes[size]} ${className}`;
 
   const content = (
-    <span className={`inline-flex items-baseline ${baseClass}`}>
+    <span className={`inline-flex items-center leading-none ${baseClass}`}>
+      <span className="brand-display -mr-0.5 text-seeket-red-vibrant" aria-hidden>
+        &lt;
+      </span>
       <span className="text-white">s</span>
       <span
         className="bg-clip-text text-transparent"
         style={{
-          backgroundImage: 'linear-gradient(to right, #9a2e2e, #fa3934, #ffac31)',
+          backgroundImage: 'linear-gradient(90deg, #fa3934 0%, #ff6a1f 46%, #ffac31 100%)',
         }}
       >
         ee
@@ -31,6 +34,9 @@ export default function SeeketLogo({ className = '', size = 'lg', animated = tru
       <span className="text-white">k</span>
       <span className="text-white">e</span>
       <span className="text-white">t</span>
+      <span className="brand-display -ml-0.5 text-seeket-orange" aria-hidden>
+        &gt;
+      </span>
     </span>
   );
 

@@ -123,7 +123,7 @@ export default function FilterMiniWizard({
               zIndex: 9999,
               visibility: panelPos ? 'visible' : 'hidden',
             }}
-            className="flex flex-col overflow-hidden rounded-xl border border-white/15 bg-[#12121a]/98 shadow-2xl shadow-black/50 backdrop-blur-xl"
+            className="flex flex-col overflow-hidden rounded-lg border border-white/[0.14] bg-[#080706]/[0.98] shadow-2xl shadow-black/60 backdrop-blur-xl"
           >
             {children}
           </div>,
@@ -140,20 +140,20 @@ export default function FilterMiniWizard({
         aria-expanded={open}
         className={`flex w-full items-center gap-2 rounded-lg border px-2.5 py-2 text-left transition-colors ${
           open
-            ? 'border-seeket-red-vibrant/35 bg-white/[0.1]'
-            : 'border-white/10 bg-white/[0.04] hover:border-white/20 hover:bg-white/[0.07]'
+            ? 'border-seeket-orange/35 bg-seeket-orange/[0.1]'
+            : 'border-white/[0.1] bg-white/[0.04] hover:border-white/20 hover:bg-white/[0.07]'
         }`}
       >
         <span className="min-w-0 flex-1">
-          <span className="block text-[10px] font-semibold uppercase tracking-wide text-white/55">
+          <span className="block text-[10px] font-semibold uppercase text-white/[0.55]">
             {label}
           </span>
-          <span className="mt-0.5 block truncate text-[11px] font-medium text-white/88">
+          <span className="mt-0.5 block truncate text-[11px] font-medium text-white/[0.88]">
             {summary}
           </span>
         </span>
         <ChevronDown
-          className={`h-3.5 w-3.5 shrink-0 text-white/45 transition-transform ${open ? 'rotate-180' : ''}`}
+          className={`h-3.5 w-3.5 shrink-0 text-white/[0.45] transition-transform ${open ? 'rotate-180' : ''}`}
           aria-hidden
         />
       </button>

@@ -5,9 +5,9 @@ import type { TierLevel } from '@/lib/types';
 type ServiceLevel = 1 | 2 | 3;
 
 const LEVEL_STYLE: Record<ServiceLevel, string> = {
-  1: 'border-white/25 bg-white/10 text-white/55',
-  2: 'border-blue-400/45 bg-blue-500/15 text-blue-300',
-  3: 'border-purple-400/45 bg-purple-500/15 text-purple-300',
+  1: 'border-white/[0.25] bg-white/[0.1] text-white/[0.62]',
+  2: 'border-seeket-orange/45 bg-seeket-orange/[0.14] text-seeket-orange',
+  3: 'border-seeket-red-vibrant/50 bg-seeket-red-vibrant/[0.14] text-seeket-red-vibrant',
 };
 
 const PROFILE_LABEL: Record<TierLevel, { label: string; level: ServiceLevel }> = {

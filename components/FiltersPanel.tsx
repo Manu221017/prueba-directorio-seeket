@@ -33,7 +33,7 @@ type WizardId =
   | null;
 
 const checkboxClass =
-  'mt-0.5 h-3.5 w-3.5 shrink-0 rounded border-white/25 bg-white/10 text-seeket-red-vibrant focus:ring-seeket-red-vibrant focus:ring-offset-0';
+  'mt-0.5 h-3.5 w-3.5 shrink-0 rounded border-white/[0.25] bg-white/[0.1] text-seeket-orange focus:ring-seeket-orange focus:ring-offset-0';
 
 const wizardScroll =
   'custom-scrollbar min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-3 py-2';
@@ -166,34 +166,34 @@ export default function FiltersPanel({ filters, onFiltersChange }: FiltersPanelP
   }, [macroOptions, categorySearch]);
 
   const wizardPanelHeader = (title: string) => (
-    <div className="shrink-0 border-b border-white/10 px-3 py-2.5">
+    <div className="shrink-0 border-b border-white/[0.1] px-3 py-2.5">
       <p className="text-xs font-semibold text-white/90">{title}</p>
     </div>
   );
 
   const searchField = (value: string, onChange: (v: string) => void, placeholder: string) => (
-    <div className="relative shrink-0 border-b border-white/10 px-3 py-2">
+    <div className="relative shrink-0 border-b border-white/[0.1] px-3 py-2">
       <Search className="pointer-events-none absolute left-5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-white/40" />
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-lg border border-white/12 bg-white/[0.06] py-1.5 pl-8 pr-2 text-[11px] text-white placeholder:text-white/35 focus:border-seeket-red-vibrant/35 focus:outline-none"
+        className="w-full rounded-lg border border-white/[0.12] bg-white/[0.06] py-1.5 pl-8 pr-2 text-[11px] text-white placeholder:text-white/35 focus:border-seeket-orange/35 focus:outline-none"
       />
     </div>
   );
 
   return (
-    <GlassCard className="flex h-full min-h-0 w-full flex-col overflow-hidden rounded-2xl p-0">
+    <GlassCard className="flex h-full min-h-0 w-full flex-col overflow-hidden rounded-lg p-0">
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden px-3 py-3 sm:px-3.5 sm:py-3.5">
-        <h2 className="mb-3 shrink-0 text-lg font-bold leading-none text-gradient">Filtros</h2>
+        <h2 className="brand-display mb-3 shrink-0 text-2xl leading-none text-white">Filtros</h2>
 
         <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-hidden">
           {/* Presupuesto — compacto inline (sin wizard) */}
-          <div className="shrink-0 rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-2">
-            <p className="text-[10px] font-semibold uppercase tracking-wide text-white/55">Presupuesto</p>
-            <p className="mt-0.5 truncate text-[11px] font-medium text-white/88">{budgetSummary}</p>
+          <div className="shrink-0 rounded-lg border border-white/[0.1] bg-black/[0.22] px-2.5 py-2">
+            <p className="text-[10px] font-semibold uppercase text-white/[0.55]">Presupuesto</p>
+            <p className="mt-0.5 truncate text-[11px] font-medium text-white/[0.88]">{budgetSummary}</p>
             <div className="mt-2 flex gap-1.5">
               <button
                 type="button"
@@ -202,7 +202,7 @@ export default function FiltersPanel({ filters, onFiltersChange }: FiltersPanelP
                 }
                 className={`flex-1 rounded-lg px-2 py-1.5 text-[10px] font-semibold transition-all sm:text-[11px] ${
                   filters.budgetType === 'hourly'
-                    ? 'bg-seeket-red-vibrant text-white'
+                    ? 'bg-seeket-orange text-black'
                     : 'bg-white/[0.08] hover:bg-white/[0.14]'
                 }`}
               >
@@ -215,7 +215,7 @@ export default function FiltersPanel({ filters, onFiltersChange }: FiltersPanelP
                 }
                 className={`flex-1 rounded-lg px-2 py-1.5 text-[10px] font-semibold transition-all sm:text-[11px] ${
                   filters.budgetType === 'project'
-                    ? 'bg-seeket-red-vibrant text-white'
+                    ? 'bg-seeket-orange text-black'
                     : 'bg-white/[0.08] hover:bg-white/[0.14]'
                 }`}
               >
@@ -357,7 +357,7 @@ export default function FiltersPanel({ filters, onFiltersChange }: FiltersPanelP
                     name="talentType"
                     checked={filters.talentType === type.id}
                     onChange={() => updateFilter('talentType', type.id)}
-                    className="mt-0.5 h-3.5 w-3.5 shrink-0 border-white/25 bg-white/10 text-seeket-red-vibrant focus:ring-seeket-red-vibrant focus:ring-offset-0"
+                    className="mt-0.5 h-3.5 w-3.5 shrink-0 border-white/[0.25] bg-white/[0.1] text-seeket-orange focus:ring-seeket-orange focus:ring-offset-0"
                   />
                   <span>{type.label}</span>
                 </label>

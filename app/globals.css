@@ -4,10 +4,14 @@
 
 /* Colores SEEKET (evitar @apply de custom classes en layers) */
 :root {
-  --seeket-dark: #161716;
+  --seeket-dark: #080706;
+  --seeket-ink: #050505;
+  --seeket-panel: #11100e;
   --seeket-red-dark: #9a2e2e;
   --seeket-red-vibrant: #fa3934;
   --seeket-orange: #ffac31;
+  --seeket-ember: #ff6a1f;
+  --seeket-cream: #fff2df;
 }
 
 @layer base {
@@ -15,25 +19,47 @@
     border-color: var(--seeket-dark);
   }
   body {
-    background-color: var(--seeket-dark);
+    background:
+      linear-gradient(118deg, #050505 0%, #080706 42%, #1a0706 65%, #421209 86%, #ff6a1f 132%),
+      var(--seeket-dark);
     color: white;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 }
 
 @layer components {
+  .brand-display {
+    font-family: Impact, Haettenschweiler, "Arial Black", "Arial Narrow Bold", sans-serif;
+    letter-spacing: 0;
+  }
+
+  .brand-serif {
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .brand-wash {
+    background:
+      linear-gradient(112deg, rgba(0, 0, 0, 0.94) 0%, rgba(10, 8, 7, 0.86) 45%, rgba(121, 25, 17, 0.34) 72%, rgba(255, 106, 31, 0.42) 100%),
+      linear-gradient(20deg, rgba(250, 57, 52, 0.24) 0%, transparent 34%, rgba(255, 172, 49, 0.22) 100%),
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.026) 0 1px, transparent 1px 5px);
+  }
+
   .glass-card {
-    @apply backdrop-blur-xl rounded-2xl shadow-2xl;
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    @apply backdrop-blur-xl rounded-lg shadow-2xl;
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.035)),
+      rgba(8, 7, 6, 0.76);
+    border: 1px solid rgba(255, 255, 255, 0.12);
   }
 
   .glass-card-strong {
-    @apply backdrop-blur-2xl rounded-2xl shadow-2xl;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    @apply backdrop-blur-2xl rounded-lg shadow-2xl;
+    background:
+      linear-gradient(150deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.045)),
+      rgba(9, 8, 7, 0.84);
+    border: 1px solid rgba(255, 242, 223, 0.16);
   }
 
   .text-gradient {
@@ -42,7 +68,7 @@
   }
 
   .btn-primary {
-    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300 active:scale-95;
+    @apply px-6 py-3 rounded-lg font-semibold transition-all duration-300 active:scale-95;
     background: linear-gradient(to right, var(--seeket-red-vibrant), var(--seeket-orange));
   }
   .btn-primary:hover {
@@ -50,7 +76,7 @@
   }
 
   .btn-secondary {
-    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300;
+    @apply px-6 py-3 rounded-lg font-semibold transition-all duration-300;
     @apply backdrop-blur-md active:scale-95;
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -88,14 +114,9 @@
     50% { background-position: 100% 50%; }
   }
   .video-simulate {
-    background: linear-gradient(
-      135deg,
-      rgba(154, 46, 46, 0.4) 0%,
-      rgba(250, 57, 52, 0.3) 25%,
-      rgba(255, 172, 49, 0.35) 50%,
-      rgba(250, 57, 52, 0.3) 75%,
-      rgba(154, 46, 46, 0.4) 100%
-    );
+    background:
+      linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(250, 57, 52, 0.55) 38%, rgba(255, 172, 49, 0.62) 72%, rgba(255, 106, 31, 0.42) 100%),
+      linear-gradient(210deg, rgba(5, 5, 5, 0.88) 0%, rgba(5, 5, 5, 0.34) 46%, transparent 100%);
     background-size: 200% 200%;
     animation: video-simulate 5s ease-in-out infinite;
   }
