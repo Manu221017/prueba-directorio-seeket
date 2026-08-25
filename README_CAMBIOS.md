@@ -2,23 +2,8 @@
 
 Documento explicativo y resumen técnico de las decisiones de diseño, arquitectura de interfaz y adaptabilidad responsive implementadas en el **Directorio SEEKET**.
 
----
 
-## 📌 Enlaces del Proyecto
 
-* **Repositorio en GitHub:** [https://github.com/Manu221017/prueba-directorio-seeket](https://github.com/Manu221017/prueba-directorio-seeket)
-* **Commit con los cambios:** [`10b1310` — Mis cambios de diseño](https://github.com/Manu221017/prueba-directorio-seeket/commit/10b131047ed4473b54b786c32cf0824bfe587209)
-* **Rama:** `main`
-
----
-
-## 📌 Enlaces del Proyecto
-
-* **Repositorio en GitHub:** [https://github.com/Manu221017/prueba-directorio-seeket](https://github.com/Manu221017/prueba-directorio-seeket)
-* **Commit principal de cambios:** [`10b1310` — Mis cambios de diseño](https://github.com/Manu221017/prueba-directorio-seeket/commit/10b131047ed4473b54b786c32cf0824bfe587209)
-* **Rama principal:** `main`
-
----
 
 ## 💡 Visión General de la Propuesta
 
@@ -31,21 +16,21 @@ El objetivo central del rediseño fue transformar la pantalla del Directorio de 
 4. **Tolerancia a Textos Extensos:** Manejo robusto de nombres de proveedores y descripciones de servicios largas sin desbordamientos de interfaz.
 
 ---
-## 📐 Solución a la Pregunta Clave: Arquitectura Responsive (375px, 768px y Desktop)
+##  Solución a la Pregunta Clave: Arquitectura Responsive (375px, 768px y Desktop)
 
 > **Pregunta clave del reto:** *En desktop, la pantalla tiene tres paneles lado a lado (filtros, panel central de video y ficha del perfil). En un teléfono de 375px no caben los tres al mismo tiempo. ¿Qué hacés con ellos?*
 
-### 📱 1. Mobile (375px - 640px)
+###  1. Mobile (375px - 640px)
 * **Barra de Búsqueda y Header de Contexto Superior:** En lugar de saturar la pantalla con el panel de filtros completo, se creó una barra superior compacta con el buscador directo, contador de perfiles coincidentes (`X de Y perfiles`) y un botón de acceso rápido a filtros (`SlidersHorizontal`).
 * **Drawer / Modal de Filtros en Pantalla Completa:** Al presionar el botón de filtros, se despliega un panel lateral/modal flotante con fondo difuminado (`backdrop-blur-xl`), permitiendo al usuario configurar filtros sin perder contexto, con bloqueo automático del scroll de fondo (`body scroll-lock`).
 * **Feed Vertical Unificado (Video 4:5 + Ficha):** El panel central y la ficha de servicio se integran en un scroll vertical fluido. El video/placeholder adopta un formato `4:5` óptimo para mobile y la tarjeta de servicio se posiciona justo debajo con accesos directos claros.
 * **Barra de Paginación Inferior:** Botones accesibles de navegación arriba/abajo (`ChevronUp` / `ChevronDown`) e indicador de dots interactivos.
 
-### 💻 2. Tablet (768px - 1023px)
+###  2. Tablet (768px - 1023px)
 * **Layout Híbrido:** Se optimiza el espacio horizontal mostrando el video en formato vertical `9:16` a la par de la ficha de servicio, permitiendo evaluar el contenido simultáneamente.
 * **Filtros bajo Demanda:** Mantiene la barra de filtros accesible mediante overlay para maximizar el área de visualización del talento.
 
-### 🖥️ 3. Desktop (1024px+)
+###  3. Desktop (1024px+)
 * **Layout Completo de 3 Columnas:**
   1. Columna izquierda fija (`aside`) con panel de filtros y buscador dedicados.
   2. Columna central con video de portada en proporción `9:16` cinematográfica.
@@ -96,7 +81,7 @@ El objetivo central del rediseño fue transformar la pantalla del Directorio de 
 
 ---
 
-## 🛡️ Manejo de Casos Extremos (Edge Cases)
+##  Manejo de Casos Extremos (Edge Cases)
 
 * **Nombres y Títulos Largos:** Implementación de `line-clamp` controlado para evitar saltos de línea indeseados o roturas de tarjetas.
 * **Scroll Interno Suave:** La ficha de servicio cuenta con scrollbar personalizado (`custom-scrollbar`) en caso de que un perfil contenga abundante información de portafolio y mercados.
@@ -104,7 +89,7 @@ El objetivo central del rediseño fue transformar la pantalla del Directorio de 
 
 ---
 
-## 🚀 Cómo Ejecutar el Proyecto Localmente
+##  Cómo Ejecutar el Proyecto Localmente
 
 ```bash
 # 1. Clonar el repositorio
